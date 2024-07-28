@@ -1,21 +1,14 @@
-# Empresa
+# Empresa (Elixir)
 
-**TODO: Add description**
+**Proyecto de aprendizaje del lenguaje de programación elixir**
 
-## Installation
+> **Nota:** elixir 1.17.2 | Erlang/OTP 27
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `empresa` to your list of dependencies in `mix.exs`:
+## Operaciones disponibles
 
-```elixir
-def deps do
-  [
-    {:empresa, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/empresa>.
-
+* Creación de empleado
+* Listar empleados
+* Consultar empleado por ID
+* Consultar empleado por documento (Nuevo)
+* Consultar empleado por nombre (Nuevo)
+* Actualizar empleado (Nuevo)
