@@ -18,19 +18,11 @@ defmodule Writer do
   - `filename`: String, the name of the JSON file to write to (optional, default: "employees.json")
 
   ## Returns
-  - `:ok` if the write operation is successful
+  - `:ok` if the write operation was successful
   - `{:error, term()}` if an error occurs
 
-  ## Special Symbols
-  - `@doc`: Provides documentation for the function
-  - `@spec`: Specifies the function's type specification
-  - `def`: Defines a public function
-  - `\\\\`: Default argument separator
-  - `%Employee{}`: Pattern matches an Employee struct
-  - `|>`: The pipe operator, passes the result of the previous expression as the first argument to the next function
-
   ## Examples
-      iex> employee = Empresa.Employee.new("Jane Doe", "Manager")
+      iex> employee = Empresa.Employee.write_employee("Jane Doe", "Manager")
       iex> Writer.write_employee(employee)
       :ok
   """
@@ -46,6 +38,44 @@ defmodule Writer do
   end
 
   @doc """
+  Updates an Employee struct in the JSON file.
+
+  ## Parameters
+  - `employee`: An Empresa.Employee struct to be updated
+  - `filename`: String, the name of the JSON file to write to (optional, default: "employees.json")
+
+  ## Returns
+  - `:ok` if the update operation was successful
+  - `{:error, term()}` if an error occurs
+
+  ## Examples
+      iex> employee = %Empresa.Employee{id: 1, name: "Jane Doe", position: "Manager"}
+      iex> Writer.update_employee(employee)
+      :ok
+
+      iex> {_, employee} = Reader.read_employee_by_id(1)
+      iex> updated_employee = Map.put(employee, :position, "Director")
+      iex> Writer.update_employee(updated_employee)
+      :ok
+
+      iex> {_, employee} = Reader.read_employee_by_id(1)
+      iex> updated_employee = %{employee | position: "Director"}
+      iex> Writer.update_employee(updated_employee)
+      :ok
+  """
+  @spec update_employee(Employee.t(), String.t()) :: :ok | {:error, term()}
+  def update_employee(%Employee{} = employee, filename \\ "employees.json") do
+    employees = read_employees(filename)
+    updated_employees = Enum.map(employees, fn
+      element when element.id == employee.id -> employee
+      other_employee -> other_employee
+    end)
+
+    json_data = Jason.encode!(updated_employees, pretty: true)
+    File.write(filename, json_data)
+  end
+
+  @doc """
   Reads existing employees from the JSON file.
 
   ## Parameters
@@ -53,12 +83,6 @@ defmodule Writer do
 
   ## Returns
   - List of Employee structs
-
-  ## Special Symbols
-  - `@doc`: Provides documentation for the function
-  - `@spec`: Specifies the function's type specification
-  - `defp`: Defines a private function
-  - `case`: Pattern matches on the result of an expression
 
   ## Examples
       iex> Writer.read_employees("employees.json")
@@ -82,14 +106,6 @@ defmodule Writer do
 
   ## Returns
   - Integer, the next available ID
-
-  ## Special Symbols
-  - `@doc`: Provides documentation for the function
-  - `@spec`: Specifies the function's type specification
-  - `defp`: Defines a private function
-  - `&`: Creates an anonymous function
-  - `&1`: Refers to the first argument of the anonymous function
-  - `|>`: The pipe operator
 
   ## Examples
       iex> employees = [%Empresa.Employee{id: 1, ...}, %Empresa.Employee{id: 2, ...}]

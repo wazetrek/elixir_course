@@ -1,0 +1,22 @@
+[
+  {
+    "id": 2,
+    "name": "Lina",
+    "document": null,
+    "position": "Developer",
+    "email": "linalalinda@gmail.com",
+    "phone": "3215680774",
+    "hire_date": null,
+    "salary": null
+  },
+  {
+    "id": 1,
+    "name": "Andrés",
+    "document": "102030",
+    "position": "Developer",
+    "email": null,
+    "phone": "3159238400",
+    "hire_date": null,
+    "salary": null
+  }
+]

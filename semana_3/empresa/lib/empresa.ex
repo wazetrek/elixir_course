@@ -21,13 +21,14 @@ defmodule Empresa do
     """
 
     @enforce_keys [:name, :position]
-    @derive {Jason.Encoder, only: [:id, :name, :position, :email, :phone, :hire_date, :salary]}
-    defstruct [:id, :name, :position, :email, :phone, :hire_date, :salary]
+    @derive {Jason.Encoder, only: [:id, :name, :document, :position, :email, :phone, :hire_date, :salary]}
+    defstruct [:id, :name, :position, :document, :email, :phone, :hire_date, :salary]
 
     @type t :: %__MODULE__{
       id: integer() | nil,
       name: String.t(),
       position: String.t(),
+      document: String.t() | nil,
       email: String.t() | nil,
       phone: String.t() | nil,
       hire_date: Date.t() | nil,

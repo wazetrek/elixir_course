@@ -77,4 +77,60 @@ defmodule Reader do
       employee -> {:ok, employee}
     end
   end
+
+  @doc """
+  Reads an employee by their name from the JSON file.
+
+  ## Parameters
+  - `name`: String, the name of the employee to find
+  - `filename`: String, the name of the JSON file to read from (optional, default: "employees.json")
+
+  ## Returns
+  - `{:ok, Employee.t()}` if the employee is found
+  - `{:error, :not_found}` if the employee is not found
+
+  ## Examples
+      iex> Reader.read_employee_by_name("Andrés")
+      {:ok, %Empresa.Employee{name: "Andrés", ...}}
+
+      iex> Reader.read_employee_by_name("")
+      {:error, :not_found}
+  """
+  @spec read_employee_by_name(String.t(), String.t()) :: {:ok, Employee.t()} | {:error, :not_found}
+  def read_employee_by_name(name, filename \\ "employees.json") do
+    employees = read_all_employees(filename)
+
+    case Enum.find(employees, &(&1.name == name)) do
+      nil -> {:error, :not_found}
+      employee -> {:ok, employee}
+    end
+  end
+
+  @doc """
+  Reads an employee by their document from the JSON file.
+
+  ## Parameters
+  - `document`: String, the name of the employee to find
+  - `filename`: String, the name of the JSON file to read from (optional, default: "employees.json")
+
+  ## Returns
+  - `{:ok, Employee.t()}` if the employee is found
+  - `{:error, :not_found}` if the employee is not found
+
+  ## Examples
+      iex> Reader.read_employee_by_document("102030")
+      {:ok, %Empresa.Employee{document: "102030", ...}}
+
+      iex> Reader.read_employee_by_document("")
+      {:error, :not_found}
+  """
+  @spec read_employee_by_document(String.t(), String.t()) :: {:ok, Employee.t()} | {:error, :not_found}
+  def read_employee_by_document(document, filename \\ "employees.json") do
+    employees = read_all_employees(filename)
+
+    case Enum.find(employees, &(&1.document == document)) do
+      nil -> {:error, :not_found}
+      employee -> {:ok, employee}
+    end
+  end
 end
