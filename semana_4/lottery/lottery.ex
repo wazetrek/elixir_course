@@ -57,3 +57,17 @@ defmodule Player do
     end
   end
 end
+
+# Ejemplo de uso
+# lottery_pid = Lottery.start()
+
+# player1 = Subscriber.start("Andrés", 10)
+# player2 = Subscriber.start("Lina", 27)
+
+# Lottery.subscribe(lottery_pid, player1)
+# Lottery.subscribe(lottery_pid, player2)
+
+# Lottery.publish(lottery_pid, 10)
+# Lottery.publish(lottery_pid, 27)
+
+# send(lottery_pid, :list)
